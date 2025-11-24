@@ -2,7 +2,7 @@
 session_start();
 
 // Database connection
-$host = 'localhost';
+$host = 'localhost:3307';
 $user = 'root';
 $pass = '';
 $dbname = 'nps_elearning';
@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Debug image path
-$image_path = __DIR__ . 'IMG/logo1.jpg';
+$image_path = __DIR__ . 'IMG/logo1.png';
 if (file_exists($image_path)) {
     error_log("Image exists at: " . $image_path);
 } else {
@@ -24,6 +24,7 @@ if (file_exists($image_path)) {
 // Initialize variables
 $login_error = $register_error = $register_success = '';
 
+// Handle Login
 // Handle Login
 if (isset($_POST['login'])) {
     $email = filter_var($_POST['loginEmail'], FILTER_SANITIZE_EMAIL);
@@ -39,10 +40,20 @@ if (isset($_POST['login'])) {
 
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
+
             if (password_verify($password, $user['password'])) {
+
+                // START: STEP 1 (Add this)
+                $update = $conn->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
+                $update->bind_param("i", $user['id']);
+                $update->execute();
+                $update->close();
+                // END: STEP 1
+
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
-                header("Location: dashboard.php"); // Redirect to a dashboard page
+
+                header("Location: dashboard.php"); 
                 exit();
             } else {
                 $login_error = "Invalid email or password.";
@@ -53,6 +64,7 @@ if (isset($_POST['login'])) {
         $stmt->close();
     }
 }
+
 
 // Handle Registration
 if (isset($_POST['register'])) {
@@ -92,13 +104,14 @@ if (isset($_POST['register'])) {
 }
 
 $conn->close();
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NPS eLearning - Login/Register</title>
+  <title>StudyFun Hub - Login/Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap CSS & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -575,17 +588,17 @@ $conn->close();
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="Home.html">
-        <img src="IMG/logo1.jpg" alt="eLearning Logo" height="40"> NPS eLearning
+      <a class="navbar-brand" href="index.php">
+        <img src="IMG/logo1.png" alt="eLearning Logo" height="40"> StudyFun Hub
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="Courses.php">Courses</a></li>
-          <li class="nav-item"><a class="nav-link" href="AboutUs.php">About Us</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li> -->
+          <!-- <li class="nav-item"><a class="nav-link" href="Courses.php">Courses</a></li> -->
+          <!-- <li class="nav-item"><a class="nav-link" href="AboutUs.php">About Us</a></li> -->
           <a class="nav-link btn btn-info text-light px-3 nav-item" href="index.php"><strong>Register/Login</strong></a>
         </ul>
       </div>
@@ -598,9 +611,9 @@ $conn->close();
     <div class="col-md-6 left-panel d-flex flex-column">
       <div class="logo-container">
         <div class="logo">
-          <img src="IMG/logo1.jpg" alt="NPS eLearning Logo" class="logo-img" width="40" height="40">
+          <img src="IMG/logo1.png" alt="StudyFun Hub Logo" class="logo-img" width="40" height="40">
         </div>
-        <div class="logo-text">NPS eLearning</div>
+        <div class="logo-text">StudyFun Hub</div>
       </div>
       <div class="mt-auto">
         <div class="feature-item">
@@ -653,6 +666,9 @@ $conn->close();
             <div class="mb-3">
               <label for="loginPassword" class="form-label">Password</label>
               <input type="password" class="form-control" id="loginPassword" name="loginPassword" required>
+            </div>
+            <div class="text-end mb-3">
+              <a href="forgotpassword.php" class="text-primary" style="text-decoration:none;">Forgot Password?</a>
             </div>
             <button type="submit" name="login" class="btn btn-primary w-100">Sign In</button>
           </form>

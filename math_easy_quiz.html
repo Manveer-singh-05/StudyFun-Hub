@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Easy Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .quiz-container { max-width: 800px; margin: auto; }
+        .question { font-weight: 600; margin-top: 20px; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 class="text-center mb-4">Math Easy Quiz</h2>
+    <h5 class="text-end">XP Earned: <span id="xp">0</span></h5>
+
+    <form id="quizForm">
+
+        <p class="question">1. What is 2 + 2?</p>
+        <input type="radio" name="q1" value="4"> 4<br>
+        <input type="radio" name="q1" value="3"> 3<br>
+        <input type="radio" name="q1" value="5"> 5<br>
+        <input type="radio" name="q1" value="6"> 6<br>
+
+        <p class="question">2. What is 5 - 3?</p>
+        <input type="radio" name="q2" value="2"> 2<br>
+        <input type="radio" name="q2" value="1"> 1<br>
+        <input type="radio" name="q2" value="3"> 3<br>
+        <input type="radio" name="q2" value="4"> 4<br>
+
+        <p class="question">3. What is 3 × 2?</p>
+        <input type="radio" name="q3" value="6"> 6<br>
+        <input type="radio" name="q3" value="4"> 4<br>
+        <input type="radio" name="q3" value="5"> 5<br>
+        <input type="radio" name="q3" value="8"> 8<br>
+
+        <p class="question">4. What is 10 ÷ 2?</p>
+        <input type="radio" name="q4" value="5"> 5<br>
+        <input type="radio" name="q4" value="4"> 4<br>
+        <input type="radio" name="q4" value="6"> 6<br>
+        <input type="radio" name="q4" value="8"> 8<br>
+
+        <p class="question">5. Next number: 1, 2, 3, 4, ?</p>
+        <input type="radio" name="q5" value="5"> 5<br>
+        <input type="radio" name="q5" value="3"> 3<br>
+        <input type="radio" name="q5" value="7"> 7<br>
+        <input type="radio" name="q5" value="9"> 9<br>
+
+        <p class="question">6. What shape has 3 sides?</p>
+        <input type="radio" name="q6" value="Triangle"> Triangle<br>
+        <input type="radio" name="q6" value="Square"> Square<br>
+        <input type="radio" name="q6" value="Circle"> Circle<br>
+        <input type="radio" name="q6" value="Hexagon"> Hexagon<br>
+
+        <p class="question">7. What is 9 - 9?</p>
+        <input type="radio" name="q7" value="0"> 0<br>
+        <input type="radio" name="q7" value="1"> 1<br>
+        <input type="radio" name="q7" value="9"> 9<br>
+        <input type="radio" name="q7" value="8"> 8<br>
+
+        <p class="question">8. What is 1 more than 7?</p>
+        <input type="radio" name="q8" value="8"> 8<br>
+        <input type="radio" name="q8" value="6"> 6<br>
+        <input type="radio" name="q8" value="7"> 7<br>
+        <input type="radio" name="q8" value="9"> 9<br>
+
+        <p class="question">9. What is 6 ÷ 3?</p>
+        <input type="radio" name="q9" value="2"> 2<br>
+        <input type="radio" name="q9" value="1"> 1<br>
+        <input type="radio" name="q9" value="3"> 3<br>
+        <input type="radio" name="q9" value="4"> 4<br>
+
+        <p class="question">10. What is the value of 10?</p>
+        <input type="radio" name="q10" value="10"> 10<br>
+        <input type="radio" name="q10" value="9"> 9<br>
+        <input type="radio" name="q10" value="11"> 11<br>
+        <input type="radio" name="q10" value="12"> 12<br>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+    </form>
+
+    <div id="result" class="mt-4 text-center"></div>
+</div>
+
+<script>
+    const totalQuestions = 10;
+
+    function submitQuiz() {
+        const answers = {
+            q1: "4",
+            q2: "2",
+            q3: "6",
+            q4: "5",
+            q5: "5",
+            q6: "Triangle",
+            q7: "0",
+            q8: "8",
+            q9: "2",
+            q10: "10"
+        };
+
+        let score = 0;
+        const form = document.forms["quizForm"];
+
+        for (let key in answers) {
+            if (form[key].value === answers[key]) {
+                score++;
+            }
+        }
+
+        const percentage = (score / totalQuestions) * 100;
+        const earnedXP = Math.floor(percentage); // ✅ Easy Rule
+
+        if (percentage >= 60) {
+            document.getElementById("xp").innerText = earnedXP;
+
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-success">✅ Passed! (${percentage.toFixed(0)}%) +${earnedXP} XP</h4>`;
+
+            saveXP(earnedXP);
+            saveAchievement(earnedXP);
+
+        } else {
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-danger">❌ Failed (${percentage.toFixed(0)}%). Try Again.</h4>`;
+        }
+    }
+
+    // function saveXP(xp) {
+    //     fetch("save_xp.php", {
+    //         method: "POST",
+    //         body: new URLSearchParams({ xp })
+    //     });
+    // }
+    function saveXP(xp) {
+    fetch("save_xp.php", {
+        method: "POST",
+        body: new URLSearchParams({
+            xp: xp,
+            category: "math"
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+
+    function saveAchievement(xp) {
+        fetch("save_achivement.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                challenge_key: "math_easy",
+                title: "Math Easy Completed",
+                description: `Completed Math Easy Quiz and earned ${xp} XP`
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Hard Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .quiz-container { max-width: 800px; margin: auto; }
+        .question { font-weight: 600; margin-top: 20px; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 class="text-center mb-4">Programming Hard Quiz</h2>
+    <h5 class="text-end">XP Earned: <span id="xp">0</span></h5>
+
+    <form id="quizForm">
+        
+        <p class="question">1. What is the time complexity of binary search?</p>
+        <input type="radio" name="q1" value="O(n)"> O(n)<br>
+        <input type="radio" name="q1" value="O(n log n)"> O(n log n)<br>
+        <input type="radio" name="q1" value="O(log n)"> O(log n)<br>
+        <input type="radio" name="q1" value="O(1)"> O(1)<br>
+
+        <p class="question">2. What does OOP stand for?</p>
+        <input type="radio" name="q2" value="Object Oriented Programming"> Object Oriented Programming<br>
+        <input type="radio" name="q2" value="Object Operational Processing"> Object Operational Processing<br>
+        <input type="radio" name="q2" value="Optimal Object Processing"> Optimal Object Processing<br>
+        <input type="radio" name="q2" value="None"> None<br>
+
+        <p class="question">3. Which protocol is used for secure web browsing?</p>
+        <input type="radio" name="q3" value="HTTPS"> HTTPS<br>
+        <input type="radio" name="q3" value="HTTP"> HTTP<br>
+        <input type="radio" name="q3" value="FTP"> FTP<br>
+        <input type="radio" name="q3" value="SSH"> SSH<br>
+
+        <p class="question">4. What does SQL stand for?</p>
+        <input type="radio" name="q4" value="Structured Query Language"> Structured Query Language<br>
+        <input type="radio" name="q4" value="Sequential Query Logic"> Sequential Query Logic<br>
+        <input type="radio" name="q4" value="Structured Queue Language"> Structured Queue Language<br>
+        <input type="radio" name="q4" value="System Query Language"> System Query Language<br>
+
+        <p class="question">5. Which data structure is used in recursion?</p>
+        <input type="radio" name="q5" value="Stack"> Stack<br>
+        <input type="radio" name="q5" value="Queue"> Queue<br>
+        <input type="radio" name="q5" value="Tree"> Tree<br>
+        <input type="radio" name="q5" value="Graph"> Graph<br>
+
+        <p class="question">6. Which sorting algorithm has O(n²) worst case?</p>
+        <input type="radio" name="q6" value="Bubble Sort"> Bubble Sort<br>
+        <input type="radio" name="q6" value="Merge Sort"> Merge Sort<br>
+        <input type="radio" name="q6" value="Quick Sort"> Quick Sort<br>
+        <input type="radio" name="q6" value="Heap Sort"> Heap Sort<br>
+
+        <p class="question">7. What is polymorphism?</p>
+        <input type="radio" name="q7" value="Many forms of a function"> Many forms of a function<br>
+        <input type="radio" name="q7" value="Single function"> Single function<br>
+        <input type="radio" name="q7" value="Deleting function"> Deleting function<br>
+        <input type="radio" name="q7" value="None"> None<br>
+
+        <p class="question">8. Which keyword prevents inheritance in Java?</p>
+        <input type="radio" name="q8" value="final"> final<br>
+        <input type="radio" name="q8" value="static"> static<br>
+        <input type="radio" name="q8" value="public"> public<br>
+        <input type="radio" name="q8" value="void"> void<br>
+
+        <p class="question">9. Which IP version uses 128-bit addressing?</p>
+        <input type="radio" name="q9" value="IPv6"> IPv6<br>
+        <input type="radio" name="q9" value="IPv4"> IPv4<br>
+        <input type="radio" name="q9" value="IPv5"> IPv5<br>
+        <input type="radio" name="q9" value="None"> None<br>
+
+        <p class="question">10. What is the port number of HTTPS?</p>
+        <input type="radio" name="q10" value="443"> 443<br>
+        <input type="radio" name="q10" value="80"> 80<br>
+        <input type="radio" name="q10" value="21"> 21<br>
+        <input type="radio" name="q10" value="22"> 22<br>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+    </form>
+
+    <div id="result" class="mt-4 text-center"></div>
+</div>
+
+<script>
+    const totalQuestions = 10;
+
+    function submitQuiz() {
+        const answers = {
+            q1: "O(log n)",
+            q2: "Object Oriented Programming",
+            q3: "HTTPS",
+            q4: "Structured Query Language",
+            q5: "Stack",
+            q6: "Bubble Sort",
+            q7: "Many forms of a function",
+            q8: "final",
+            q9: "IPv6",
+            q10: "443"
+        };
+
+        let score = 0;
+        const form = document.forms["quizForm"];
+
+        for (let key in answers) {
+            if (form[key].value === answers[key]) {
+                score++;
+            }
+        }
+
+        const percentage = (score / totalQuestions) * 100;
+        const earnedXP = Math.floor(percentage * 3); // ✅ Hard XP rule
+
+        if (percentage >= 60) {
+            document.getElementById("xp").innerText = earnedXP;
+
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-success">✅ Passed! (${percentage.toFixed(0)}%) +${earnedXP} XP</h4>`;
+
+            saveXP(earnedXP);
+            saveAchievement(earnedXP);
+
+        } else {
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-danger">❌ Failed (${percentage.toFixed(0)}%). Try Again.</h4>`;
+        }
+    }
+
+    // function saveXP(xp) {
+    //     fetch("save_xp.php", {
+    //         method: "POST",
+    //         body: new URLSearchParams({ xp })
+    //     });
+    // }
+    function saveXP(xp) {
+    fetch("save_xp.php", {
+        method: "POST",
+        body: new URLSearchParams({
+            xp: xp,
+            category: "programming"
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+
+    function saveAchievement(xp) {
+        fetch("save_achivement.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                challenge_key: "programming_hard",
+                title: "Programming Hard Completed",
+                description: `Completed Programming Hard Quiz and earned ${xp} XP`
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    }
+</script>
+
+</body>
+</html>

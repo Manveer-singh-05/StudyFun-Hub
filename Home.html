@@ -4,63 +4,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eLearning Platform</title>
+    <title>StudyFun Hub</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .hero-section {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+        }
+        
+        .animate-heading {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .animate-quote {
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .animate-button {
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .quote-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Navbar -->
-
     <div id="navbar-placeholder"></div>
 
-    <!-- Navbar -->
-    <!-- Carousel for Background -->
-    <div id="bgCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2000">
+    <!-- Background Carousel -->
+    <div id="bgCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="hero-section bg1">
+                <div class="hero-section" style="background-image: url('IMG/imgBG2.jpg')">
                     <div class="container">
-                        <h1 class="animate-heading">Welcome to NPS eLearning</h1>
+                        <h1 class="animate-heading">Welcome to StudyFun Hub</h1>
                         <blockquote class="blockquote text-center quote-box animate-quote">
                             <p>"Education is the most powerful weapon which you can use to change the world."</p>
-                            <footer class="blockquote-footer">Nelson Mandela</footer>
+                            <footer class="blockquote-footer text-white">Nelson Mandela</footer>
                         </blockquote>
-                        <!-- <a href="login.html" class="btn btn-success btn-lg animate-button">Start Learning</a> -->
-                        <a href="login.html"<button class="button-73" role="button"><strong>Start Learning</strong></button></a>
+                        <a href="Courses.html" class="btn btn-primary btn-lg animate-button">Start Learning</a>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <div class="hero-section bg2">
-                    <!-- Keep same content or modify if you want -->
+                <div class="hero-section" style="background-image: url('IMG/imgBG3.jpg')">
                     <div class="container">
-                        <h1 class="animate-heading">Welcome to NPS eLearning</h1>
+                        <h1 class="animate-heading">Interactive Learning</h1>
                         <blockquote class="blockquote text-center quote-box animate-quote">
                             <p>"The beautiful thing about learning is that nobody can take it away from you."</p>
-                            <footer class="blockquote-footer">B.B. King</footer>
+                            <footer class="blockquote-footer text-white">B.B. King</footer>
                         </blockquote>
-                        <a href="Courses.html" class="btn btn-success btn-lg animate-button">Start Learning</a>
+                        <a href="Courses.html" class="btn btn-primary btn-lg animate-button">Explore Courses</a>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <div class="hero-section bg3">
+                <div class="hero-section" style="background-image: url('IMG/imgBG4.jpg')">
                     <div class="container">
-                        <h1 class="animate-heading">Welcome to NPS eLearning</h1>
+                        <h1 class="animate-heading">Learn at Your Own Pace</h1>
                         <blockquote class="blockquote text-center quote-box animate-quote">
-                            <p>"Learning never exhausts the mind."</p>
-                            <footer class="blockquote-footer">Leonardo da Vinci</footer>
+                            <p>"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."</p>
+                            <footer class="blockquote-footer text-white">Brian Herbert</footer>
                         </blockquote>
-                        <a href="Courses.html" class="btn btn-success btn-lg animate-button">Start Learning</a>
+                        <a href="Courses.html" class="btn btn-primary btn-lg animate-button">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-section" style="background-image: url('IMG/imgBG5.jpg')">
+                    <div class="container">
+                        <h1 class="animate-heading">Expert Instructors</h1>
+                        <blockquote class="blockquote text-center quote-box animate-quote">
+                            <p>"The expert in anything was once a beginner."</p>
+                            <footer class="blockquote-footer text-white">Helen Hayes</footer>
+                        </blockquote>
+                        <a href="Courses.html" class="btn btn-primary btn-lg animate-button">Join Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-section" style="background-image: url('IMG/imgBG6.jpg')">
+                    <div class="container">
+                        <h1 class="animate-heading">Achieve Your Goals</h1>
+                        <blockquote class="blockquote text-center quote-box animate-quote">
+                            <p>"Success is not final, failure is not fatal: it is the courage to continue that counts."</p>
+                            <footer class="blockquote-footer text-white">Winston Churchill</footer>
+                        </blockquote>
+                        <a href="Courses.html" class="btn btn-primary btn-lg animate-button">Begin Journey</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="index1.js"></script>
-</body>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            // Load appropriate navbar based on PHP session
+            $.get("check_auth.php")
+                .done(function(isLoggedIn) {
+                    const navbarFile = isLoggedIn === "true" ? "navbar-loggedin.php" : "navbar-guest.php";
+                    $("#navbar-placeholder").load(navbarFile, function(response, status, xhr) {
+                        if (status === "error") {
+                            console.error("Error loading navbar:", xhr.status, xhr.statusText);
+                            // If loading logged-in navbar fails, try guest navbar
+                            if (navbarFile === "navbar-loggedin.php") {
+                                $("#navbar-placeholder").load("navbar-guest.php");
+                            }
+                        }
+                    });
+                })
+                .fail(function() {
+                    // If auth check fails, default to guest navbar
+                    $("#navbar-placeholder").load("navbar-guest.php");
+                });
+        });
+    </script>
+</body>
 </html>

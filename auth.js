@@ -28,7 +28,7 @@ function registerUser(event) {
     saveUsers(users);
 
     alert("Registration successful! Please log in.");
-    window.location.href = "login.html"; // Change path if needed
+    window.location.href = "index.php"; // Change path if needed
 }
 
 // Login Logic
@@ -45,7 +45,7 @@ function loginUser(event) {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("loggedInUser", JSON.stringify(matchedUser));
         alert("Login successful!");
-        window.location.href = "Courses.html"; // Redirect after login
+        window.location.href = "Courses.php"; // Redirect after login
     } else {
         alert("Invalid email or password.");
     }
@@ -56,7 +56,7 @@ function logoutUser() {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loggedInUser");
     alert("Logged out successfully.");
-    window.location.href = "login.html";
+    window.location.href = "index.php";
 }
 
 // Check login status anywhere

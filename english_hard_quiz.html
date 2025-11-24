@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Hard Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .quiz-container { max-width: 800px; margin: auto; }
+        .question { font-weight: 600; margin-top: 20px; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 class="text-center mb-4">English Hard Quiz</h2>
+    <h5 class="text-end">XP Earned: <span id="xp">0</span></h5>
+
+    <form id="quizForm">
+
+        <p class="question">1. Meaning of 'metaphor'?</p>
+        <input type="radio" name="q1" value="Comparison using like/as"> Comparison using like/as<br>
+        <input type="radio" name="q1" value="Direct comparison without like/as"> Direct comparison without like/as<br>
+        <input type="radio" name="q1" value="Repetition of sounds"> Repetition of sounds<br>
+        <input type="radio" name="q1" value="Exaggeration"> Exaggeration<br>
+
+        <p class="question">2. Identify the passive voice:</p>
+        <input type="radio" name="q2" value="He wrote a letter."> He wrote a letter.<br>
+        <input type="radio" name="q2" value="A letter was written by him."> A letter was written by him.<br>
+        <input type="radio" name="q2" value="He is writing a letter."> He is writing a letter.<br>
+        <input type="radio" name="q2" value="He writes letters."> He writes letters.<br>
+
+        <p class="question">3. Correct sentence:</p>
+        <input type="radio" name="q3" value="He don't know."> He don't know.<br>
+        <input type="radio" name="q3" value="He doesn't know."> He doesn't know.<br>
+        <input type="radio" name="q3" value="He not knows."> He not knows.<br>
+        <input type="radio" name="q3" value="He isn't know."> He isn't know.<br>
+
+        <p class="question">4. Antonym of 'melancholy'?</p>
+        <input type="radio" name="q4" value="Joy"> Joy<br>
+        <input type="radio" name="q4" value="Anger"> Anger<br>
+        <input type="radio" name="q4" value="Fear"> Fear<br>
+        <input type="radio" name="q4" value="Quiet"> Quiet<br>
+
+        <p class="question">5. Clause type in 'Although he tried, he failed.'</p>
+        <input type="radio" name="q5" value="Independent clause"> Independent clause<br>
+        <input type="radio" name="q5" value="Subordinate clause"> Subordinate clause<br>
+        <input type="radio" name="q5" value="Noun clause"> Noun clause<br>
+        <input type="radio" name="q5" value="Adjective clause"> Adjective clause<br>
+
+        <p class="question">6. Correct spelling:</p>
+        <input type="radio" name="q6" value="Accomodate"> Accomodate<br>
+        <input type="radio" name="q6" value="Acommodate"> Acommodate<br>
+        <input type="radio" name="q6" value="Accommodate"> Accommodate<br>
+        <input type="radio" name="q6" value="Accommadate"> Accommadate<br>
+
+        <p class="question">7. Figure of speech in 'Time is a thief.'</p>
+        <input type="radio" name="q7" value="Simile"> Simile<br>
+        <input type="radio" name="q7" value="Metaphor"> Metaphor<br>
+        <input type="radio" name="q7" value="Personification"> Personification<br>
+        <input type="radio" name="q7" value="Hyperbole"> Hyperbole<br>
+
+        <p class="question">8. Meaning of idiom 'Break the ice'?</p>
+        <input type="radio" name="q8" value="Start a conversation"> Start a conversation<br>
+        <input type="radio" name="q8" value="Break something literally"> Break something literally<br>
+        <input type="radio" name="q8" value="End a relationship"> End a relationship<br>
+        <input type="radio" name="q8" value="Become angry"> Become angry<br>
+
+        <p class="question">9. 'Whom' is used for:</p>
+        <input type="radio" name="q9" value="Subject of verb"> Subject of verb<br>
+        <input type="radio" name="q9" value="Object of verb"> Object of verb<br>
+        <input type="radio" name="q9" value="Possession"> Possession<br>
+        <input type="radio" name="q9" value="Plural nouns"> Plural nouns<br>
+
+        <p class="question">10. Correct voice: 'The work will be completed by tomorrow.'</p>
+        <input type="radio" name="q10" value="Active"> Active<br>
+        <input type="radio" name="q10" value="Passive"> Passive<br>
+        <input type="radio" name="q10" value="Interrogative"> Interrogative<br>
+        <input type="radio" name="q10" value="Imperative"> Imperative<br>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+    </form>
+
+    <div id="result" class="mt-4 text-center"></div>
+</div>
+
+<script>
+    const totalQuestions = 10;
+
+    function submitQuiz() {
+        const answers = {
+            q1: "Direct comparison without like/as",
+            q2: "A letter was written by him.",
+            q3: "He doesn't know.",
+            q4: "Joy",
+            q5: "Subordinate clause",
+            q6: "Accommodate",
+            q7: "Metaphor",
+            q8: "Start a conversation",
+            q9: "Object of verb",
+            q10: "Passive"
+        };
+
+        let score = 0;
+        const form = document.forms["quizForm"];
+
+        for (let key in answers) {
+            if (form[key].value === answers[key]) {
+                score++;
+            }
+        }
+
+        const percentage = (score / totalQuestions) * 100;
+        const earnedXP = Math.floor(percentage * 2); // ✅ HARD XP RULE
+
+        if (percentage >= 60) {
+            document.getElementById("xp").innerText = earnedXP;
+
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-success">✅ Passed! (${percentage.toFixed(0)}%) +${earnedXP} XP</h4>`;
+
+            saveXP(earnedXP);
+            saveAchievement(earnedXP);
+
+        } else {
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-danger">❌ Failed (${percentage.toFixed(0)}%). Try Again.</h4>`;
+        }
+    }
+
+    // function saveXP(xp) {
+    //     fetch("save_xp.php", {
+    //         method: "POST",
+    //         body: new URLSearchParams({ xp })
+    //     });
+    // }
+    function saveXP(xp) {
+    fetch("save_xp.php", {
+        method: "POST",
+        body: new URLSearchParams({
+            xp: xp,
+            category: "english"
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+
+    function saveAchievement(xp) {
+        fetch("save_achivement.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                challenge_key: "english_hard",
+                title: "English Hard Completed",
+                description: `Completed English Hard Quiz and earned ${xp} XP`
+            })
+        });
+    }
+</script>
+
+</body>
+</html>

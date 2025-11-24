@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (storedUser && email === storedUser.email && password === storedUser.password) {
             // Login successful
             localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "Home.html";
+            window.location.href = "Home.php";
             return;
         }
     
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'home.html';
+            const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'home.php';
             document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
                 const href = link.getAttribute('href')?.toLowerCase();
                 if (href === currentPage) {

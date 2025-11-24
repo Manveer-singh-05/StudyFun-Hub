@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Medium Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .quiz-container { max-width: 800px; margin: auto; }
+        .question { font-weight: 600; margin-top: 20px; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 class="text-center mb-4">Programming Medium Quiz</h2>
+    <h5 class="text-end">XP Earned: <span id="xp">0</span></h5>
+
+    <form id="quizForm">
+        
+        <p class="question">1. Which data structure uses FIFO?</p>
+        <input type="radio" name="q1" value="Queue"> Queue<br>
+        <input type="radio" name="q1" value="Stack"> Stack<br>
+        <input type="radio" name="q1" value="Tree"> Tree<br>
+        <input type="radio" name="q1" value="Graph"> Graph<br>
+
+        <p class="question">2. What does HTML stand for?</p>
+        <input type="radio" name="q2" value="HyperText Markup Language"> HyperText Markup Language<br>
+        <input type="radio" name="q2" value="Hyper Transfer Markup Language"> Hyper Transfer Markup Language<br>
+        <input type="radio" name="q2" value="HighText Machine Language"> HighText Machine Language<br>
+        <input type="radio" name="q2" value="None"> None<br>
+
+        <p class="question">3. Which keyword defines a function in Python?</p>
+        <input type="radio" name="q3" value="def"> def<br>
+        <input type="radio" name="q3" value="define"> define<br>
+        <input type="radio" name="q3" value="function"> function<br>
+        <input type="radio" name="q3" value="fun"> fun<br>
+
+        <p class="question">4. Which is a looping statement?</p>
+        <input type="radio" name="q4" value="for"> for<br>
+        <input type="radio" name="q4" value="print"> print<br>
+        <input type="radio" name="q4" value="import"> import<br>
+        <input type="radio" name="q4" value="class"> class<br>
+
+        <p class="question">5. What does CSS control?</p>
+        <input type="radio" name="q5" value="Styling"> Styling<br>
+        <input type="radio" name="q5" value="Logic"> Logic<br>
+        <input type="radio" name="q5" value="Variables"> Variables<br>
+        <input type="radio" name="q5" value="Memory"> Memory<br>
+
+        <p class="question">6. Which symbol is used for equality check?</p>
+        <input type="radio" name="q6" value="=="> ==<br>
+        <input type="radio" name="q6" value="="> =<br>
+        <input type="radio" name="q6" value="==="> ===<br>
+        <input type="radio" name="q6" value="!"> !<br>
+
+        <p class="question">7. Which is a database?</p>
+        <input type="radio" name="q7" value="MySQL"> MySQL<br>
+        <input type="radio" name="q7" value="Python"> Python<br>
+        <input type="radio" name="q7" value="Linux"> Linux<br>
+        <input type="radio" name="q7" value="Chrome"> Chrome<br>
+
+        <p class="question">8. What is Git used for?</p>
+        <input type="radio" name="q8" value="Version control"> Version control<br>
+        <input type="radio" name="q8" value="Debugging"> Debugging<br>
+        <input type="radio" name="q8" value="Compiling"> Compiling<br>
+        <input type="radio" name="q8" value="Testing"> Testing<br>
+
+        <p class="question">9. What does API stand for?</p>
+        <input type="radio" name="q9" value="Application Programming Interface"> Application Programming Interface<br>
+        <input type="radio" name="q9" value="Advanced Program Instruction"> Advanced Program Instruction<br>
+        <input type="radio" name="q9" value="Automated Programming Interface"> Automated Programming Interface<br>
+        <input type="radio" name="q9" value="Application Process Input"> Application Process Input<br>
+
+        <p class="question">10. Which data type holds True/False?</p>
+        <input type="radio" name="q10" value="Boolean"> Boolean<br>
+        <input type="radio" name="q10" value="Integer"> Integer<br>
+        <input type="radio" name="q10" value="String"> String<br>
+        <input type="radio" name="q10" value="Float"> Float<br>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+    </form>
+
+    <div id="result" class="mt-4 text-center"></div>
+</div>
+
+<script>
+    const totalQuestions = 10;
+
+    function submitQuiz() {
+        const answers = {
+            q1: "Queue",
+            q2: "HyperText Markup Language",
+            q3: "def",
+            q4: "for",
+            q5: "Styling",
+            q6: "==",
+            q7: "MySQL",
+            q8: "Version control",
+            q9: "Application Programming Interface",
+            q10: "Boolean"
+        };
+
+        let score = 0;
+        const form = document.forms["quizForm"];
+
+        for (let key in answers) {
+            if (form[key].value === answers[key]) {
+                score++;
+            }
+        }
+
+        const percentage = (score / totalQuestions) * 100;
+        const earnedXP = Math.floor(percentage * 2); // ✅ Medium rule
+
+        if (percentage >= 60) {
+            document.getElementById("xp").innerText = earnedXP;
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-success">✅ Passed! (${percentage.toFixed(0)}%) +${earnedXP} XP</h4>`;
+
+            saveXP(earnedXP);
+            saveAchievement(earnedXP);
+
+        } else {
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-danger">❌ Failed (${percentage.toFixed(0)}%). Try Again.</h4>`;
+        }
+    }
+
+    // function saveXP(xp) {
+    //     fetch("save_xp.php", {
+    //         method: "POST",
+    //         body: new URLSearchParams({ xp })
+    //     });
+    // }
+    function saveXP(xp) {
+    fetch("save_xp.php", {
+        method: "POST",
+        body: new URLSearchParams({
+            xp: xp,
+            category: "programming"
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+
+    function saveAchievement(xp) {
+        fetch("save_achivement.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                challenge_key: "programming_medium",
+                title: "Programming Medium Completed",
+                description: `Completed Programming Medium Quiz and earned ${xp} XP`
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    }
+</script>
+
+</body>
+</html>

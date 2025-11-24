@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Medium Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .quiz-container { max-width: 800px; margin: auto; }
+        .question { font-weight: 600; margin-top: 20px; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 class="text-center mb-4">English Medium Quiz</h2>
+    <h5 class="text-end">XP Earned: <span id="xp">0</span></h5>
+
+    <form id="quizForm">
+
+        <p class="question">1. Choose the correct sentence:</p>
+        <input type="radio" name="q1" value="He don't like apples."> He don't like apples.<br>
+        <input type="radio" name="q1" value="He doesn't likes apples."> He doesn't likes apples.<br>
+        <input type="radio" name="q1" value="He doesn’t like apples."> He doesn’t like apples.<br>
+        <input type="radio" name="q1" value="He not like apples."> He not like apples.<br>
+
+        <p class="question">2. What is the synonym of "brave"?</p>
+        <input type="radio" name="q2" value="Cowardly"> Cowardly<br>
+        <input type="radio" name="q2" value="Timid"> Timid<br>
+        <input type="radio" name="q2" value="Courageous"> Courageous<br>
+        <input type="radio" name="q2" value="Afraid"> Afraid<br>
+
+        <p class="question">3. Which word is an adverb?</p>
+        <input type="radio" name="q3" value="Quick"> Quick<br>
+        <input type="radio" name="q3" value="Quickly"> Quickly<br>
+        <input type="radio" name="q3" value="Quickness"> Quickness<br>
+        <input type="radio" name="q3" value="Quickest"> Quickest<br>
+
+        <p class="question">4. Fill in the blank: "If I ____ more time, I would read more books."</p>
+        <input type="radio" name="q4" value="have"> have<br>
+        <input type="radio" name="q4" value="had"> had<br>
+        <input type="radio" name="q4" value="has"> has<br>
+        <input type="radio" name="q4" value="having"> having<br>
+
+        <p class="question">5. Which sentence is in the past tense?</p>
+        <input type="radio" name="q5" value="She will go to school."> She will go to school.<br>
+        <input type="radio" name="q5" value="She goes to school."> She goes to school.<br>
+        <input type="radio" name="q5" value="She went to school."> She went to school.<br>
+        <input type="radio" name="q5" value="She is going to school."> She is going to school.<br>
+
+        <p class="question">6. Choose the correct reported speech: He said, "I am tired."</p>
+        <input type="radio" name="q6" value="He said that he is tired."> He said that he is tired.<br>
+        <input type="radio" name="q6" value="He said that he was tired."> He said that he was tired.<br>
+        <input type="radio" name="q6" value="He says that he was tired."> He says that he was tired.<br>
+        <input type="radio" name="q6" value="He told that he is tired."> He told that he is tired.<br>
+
+        <p class="question">7. Which option is a complex sentence?</p>
+        <input type="radio" name="q7" value="She studied and passed the exam."> She studied and passed the exam.<br>
+        <input type="radio" name="q7" value="She studied because she wanted to pass."> She studied because she wanted to pass.<br>
+        <input type="radio" name="q7" value="She studied, she passed."> She studied, she passed.<br>
+        <input type="radio" name="q7" value="She studied, and she passed."> She studied, and she passed.<br>
+
+        <p class="question">8. Choose the correct form: "The book was written ____ Shakespeare."</p>
+        <input type="radio" name="q8" value="by"> by<br>
+        <input type="radio" name="q8" value="of"> of<br>
+        <input type="radio" name="q8" value="from"> from<br>
+        <input type="radio" name="q8" value="with"> with<br>
+
+        <p class="question">9. What is the antonym of "increase"?</p>
+        <input type="radio" name="q9" value="Raise"> Raise<br>
+        <input type="radio" name="q9" value="Grow"> Grow<br>
+        <input type="radio" name="q9" value="Expand"> Expand<br>
+        <input type="radio" name="q9" value="Reduce"> Reduce<br>
+
+        <p class="question">10. Choose the correctly punctuated sentence:</p>
+        <input type="radio" name="q10" value="Its raining, we should stay inside."> Its raining, we should stay inside.<br>
+        <input type="radio" name="q10" value="It's raining; we should stay inside."> It's raining; we should stay inside.<br>
+        <input type="radio" name="q10" value="Its raining we should stay inside."> Its raining we should stay inside.<br>
+        <input type="radio" name="q10" value="It's raining we should stay inside"> It's raining we should stay inside<br>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+    </form>
+
+    <div id="result" class="mt-4 text-center"></div>
+</div>
+
+<script>
+    const totalQuestions = 10;
+
+    function submitQuiz() {
+        const answers = {
+            q1: "He doesn’t like apples.",
+            q2: "Courageous",
+            q3: "Quickly",
+            q4: "had",
+            q5: "She went to school.",
+            q6: "He said that he was tired.",
+            q7: "She studied because she wanted to pass.",
+            q8: "by",
+            q9: "Reduce",
+            q10: "It's raining; we should stay inside."
+        };
+
+        let score = 0;
+        const form = document.forms["quizForm"];
+
+        for (let key in answers) {
+            if (form[key].value === answers[key]) {
+                score++;
+            }
+        }
+
+        const percentage = (score / totalQuestions) * 100;
+        const earnedXP = Math.floor(percentage); // ✅ Medium XP Rule
+
+        if (percentage >= 60) {
+            document.getElementById("xp").innerText = earnedXP;
+
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-success">✅ Passed! (${percentage.toFixed(0)}%) +${earnedXP} XP</h4>`;
+
+            saveXP(earnedXP);
+            saveAchievement(earnedXP);
+
+        } else {
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-danger">❌ Failed (${percentage.toFixed(0)}%). Try Again.</h4>`;
+        }
+    }
+
+    // function saveXP(xp) {
+    //     fetch("save_xp.php", {
+    //         method: "POST",
+    //         body: new URLSearchParams({ xp })
+    //     });
+    // }
+    function saveXP(xp) {
+    fetch("save_xp.php", {
+        method: "POST",
+        body: new URLSearchParams({
+            xp: xp,
+            category: "english"
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+
+    function saveAchievement(xp) {
+        fetch("save_achivement.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                challenge_key: "english_medium",
+                title: "English Medium Completed",
+                description: `Completed English Medium Quiz and earned ${xp} XP`
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    }
+</script>
+
+</body>
+</html>

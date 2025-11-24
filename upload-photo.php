@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture']) &
                 $stmt->bind_param("si", $dest_path, $user_id);
                 if ($stmt->execute()) {
                     $message = "Profile picture uploaded successfully!";
+                    
                 } else {
                     $message = "Error updating profile picture: " . $stmt->error;
                     error_log("Execute failed: " . $stmt->error, 3, 'upload_errors.log');

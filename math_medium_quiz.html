@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Medium Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .quiz-container { max-width: 800px; margin: auto; }
+        .question { font-weight: 600; margin-top: 20px; }
+        .btn-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2 class="text-center mb-4">Math Medium Quiz</h2>
+    <h5 class="text-end">XP Earned: <span id="xp">0</span></h5>
+
+    <form id="quizForm">
+
+        <p class="question">1. What is 15 ÷ 3?</p>
+        <input type="radio" name="q1" value="5"> 5<br>
+        <input type="radio" name="q1" value="4"> 4<br>
+        <input type="radio" name="q1" value="6"> 6<br>
+        <input type="radio" name="q1" value="7"> 7<br>
+
+        <p class="question">2. What is 12 × 2?</p>
+        <input type="radio" name="q2" value="24"> 24<br>
+        <input type="radio" name="q2" value="20"> 20<br>
+        <input type="radio" name="q2" value="22"> 22<br>
+        <input type="radio" name="q2" value="26"> 26<br>
+
+        <p class="question">3. What is the square of 6?</p>
+        <input type="radio" name="q3" value="36"> 36<br>
+        <input type="radio" name="q3" value="30"> 30<br>
+        <input type="radio" name="q3" value="42"> 42<br>
+        <input type="radio" name="q3" value="48"> 48<br>
+
+        <p class="question">4. What is 50% of 100?</p>
+        <input type="radio" name="q4" value="50"> 50<br>
+        <input type="radio" name="q4" value="25"> 25<br>
+        <input type="radio" name="q4" value="40"> 40<br>
+        <input type="radio" name="q4" value="60"> 60<br>
+
+        <p class="question">5. Which is a prime number?</p>
+        <input type="radio" name="q5" value="7"> 7<br>
+        <input type="radio" name="q5" value="4"> 4<br>
+        <input type="radio" name="q5" value="6"> 6<br>
+        <input type="radio" name="q5" value="9"> 9<br>
+
+        <p class="question">6. What is 8²?</p>
+        <input type="radio" name="q6" value="64"> 64<br>
+        <input type="radio" name="q6" value="36"> 36<br>
+        <input type="radio" name="q6" value="48"> 48<br>
+        <input type="radio" name="q6" value="72"> 72<br>
+
+        <p class="question">7. What is 100 ÷ 4?</p>
+        <input type="radio" name="q7" value="25"> 25<br>
+        <input type="radio" name="q7" value="20"> 20<br>
+        <input type="radio" name="q7" value="30"> 30<br>
+        <input type="radio" name="q7" value="35"> 35<br>
+
+        <p class="question">8. Solve: 18 - 9 + 3</p>
+        <input type="radio" name="q8" value="12"> 12<br>
+        <input type="radio" name="q8" value="8"> 8<br>
+        <input type="radio" name="q8" value="10"> 10<br>
+        <input type="radio" name="q8" value="14"> 14<br>
+
+        <p class="question">9. What is the cube of 3?</p>
+        <input type="radio" name="q9" value="27"> 27<br>
+        <input type="radio" name="q9" value="18"> 18<br>
+        <input type="radio" name="q9" value="21"> 21<br>
+        <input type="radio" name="q9" value="25"> 25<br>
+
+        <p class="question">10. Solve: 6 × 4 - 10</p>
+        <input type="radio" name="q10" value="14"> 14<br>
+        <input type="radio" name="q10" value="12"> 12<br>
+        <input type="radio" name="q10" value="16"> 16<br>
+        <input type="radio" name="q10" value="18"> 18<br>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+        </div>
+    </form>
+
+    <div id="result" class="mt-4 text-center"></div>
+</div>
+
+<script>
+    const totalQuestions = 10;
+
+    function submitQuiz() {
+        const answers = {
+            q1: "5",
+            q2: "24",
+            q3: "36",
+            q4: "50",
+            q5: "7",
+            q6: "64",
+            q7: "25",
+            q8: "12",
+            q9: "27",
+            q10: "14"
+        };
+
+        let score = 0;
+        const form = document.forms["quizForm"];
+
+        for (let key in answers) {
+            if (form[key].value === answers[key]) {
+                score++;
+            }
+        }
+
+        const percentage = (score / totalQuestions) * 100;
+        const earnedXP = Math.floor(percentage * 2); // ✅ Medium Rule
+
+        if (percentage >= 60) {
+            document.getElementById("xp").innerText = earnedXP;
+
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-success">✅ Passed! (${percentage.toFixed(0)}%) +${earnedXP} XP</h4>`;
+
+            saveXP(earnedXP);
+            saveAchievement(earnedXP);
+
+        } else {
+            document.getElementById("result").innerHTML =
+                `<h4 class="text-danger">❌ Failed (${percentage.toFixed(0)}%). Try Again.</h4>`;
+        }
+    }
+
+    // function saveXP(xp) {
+    //     fetch("save_xp.php", {
+    //         method: "POST",
+    //         body: new URLSearchParams({ xp })
+    //     });
+    // }
+    function saveXP(xp) {
+    fetch("save_xp.php", {
+        method: "POST",
+        body: new URLSearchParams({
+            xp: xp,
+            category: "math"
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+
+    function saveAchievement(xp) {
+        fetch("save_achivement.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                challenge_key: "math_medium",
+                title: "Math Medium Completed",
+                description: `Completed Math Medium Quiz and earned ${xp} XP`
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    }
+</script>
+
+</body>
+</html>

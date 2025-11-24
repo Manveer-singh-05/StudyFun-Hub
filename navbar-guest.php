@@ -74,18 +74,18 @@
     ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="Home.html">
-                <img src="IMG/logo1.jpg" alt="eLearning Logo" height="40"> NPS eLearning
+            <a class="navbar-brand">
+                <img src="IMG/logo1.png" alt="eLearning Logo" height="40"> StudyFun Hub
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="Home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="Courses.html">Courses</a>
                     </li>
                     <li class="nav-item">
@@ -96,7 +96,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="AboutUs.html">About Us</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="d-flex align-items-center">
                     <a href="index.php" class="btn btn-light me-2">Login</a>

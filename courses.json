@@ -6,6 +6,7 @@
         "faculty": "Dr. Amit Sharma",
         "description": "A beginner-friendly course to kickstart your journey in programming.",
         "level": "Beginner",
+        "category": "math",
         "quizzes": {
             "25": [
                 {
@@ -224,6 +225,7 @@
         "faculty": "Prof. Neha Gupta",
         "description": "Dive deep into advanced concepts and techniques.",
         "level": "Advanced",
+         "category": "science",
         "quizzes": {
             "25": [
                 {
@@ -442,6 +444,7 @@
         "faculty": "Mr. Rahul Verma",
         "description": "Learn the basics of design and creativity.",
         "level": "Beginner",
+          "category": "english",
         "quizzes": {
             "25": [
                 {
@@ -660,6 +663,8 @@
         "faculty": "Dr. Priya Singh",
         "description": "Master the art of data analysis and visualization.",
         "level": "Intermediate",
+         "category": "programming",
+         
         "quizzes": {
             "25": [
                 {
@@ -878,6 +883,7 @@
         "faculty": "Ms. Sneha Patel",
         "description": "Explore the fundamentals of modern frameworks.",
         "level": "Intermediate",
+        "category": "science",
         "quizzes": {
             "25": [
                 {
@@ -1096,6 +1102,7 @@
         "faculty": "Khan Sir ",
         "description": "Learn Basic chemistry from best teacher.",
         "level": "Basic",
+        "category": "science",
         "quizzes": {
             "25": [
                 {

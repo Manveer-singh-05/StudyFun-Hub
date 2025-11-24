@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Course Player - NPS eLearning</title>
+    <title>Course Player - StudyFun Hub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
@@ -70,9 +71,11 @@
             0% {
                 box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
             }
+
             70% {
                 box-shadow: 0 0 0 10px rgba(67, 97, 238, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
             }
@@ -108,7 +111,7 @@
         /* Course title section */
         #courseTitle {
             background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
             margin-top: 1.5rem;
@@ -184,9 +187,12 @@
         }
 
         @keyframes bounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-5px);
             }
@@ -299,12 +305,13 @@
             .container {
                 padding: 0 1.25rem;
             }
-            
+
             #courseTitle {
                 font-size: 1.5rem;
             }
-            
-            .badge, .text-muted {
+
+            .badge,
+            .text-muted {
                 font-size: 0.8rem;
             }
         }
@@ -315,13 +322,15 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .card, .video-container {
+        .card,
+        .video-container {
             animation: fadeIn 0.5s ease-out forwards;
         }
 
@@ -347,6 +356,7 @@
 
 <body>
     <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
     <nav class="navbar bg-white">
         <div class="container">
             <a class="navbar-brand text-primary" href="courses.html">
@@ -386,8 +396,8 @@
                         <div class="mb-4">
                             <h5><i class="bi bi-graph-up"></i> Watching Video</h5>
                             <div class="progress">
-                                <div class="progress-bar" id="videoProgressBar" role="progressbar"
-                                    style="width: 0%"></div>
+                                <div class="progress-bar" id="videoProgressBar" role="progressbar" style="width: 0%">
+                                </div>
                             </div>
                             <small class="text-muted d-block mt-2"><span id="progressText">0%</span> Completed</small>
                         </div>
@@ -406,8 +416,8 @@
 
                         <!-- Toast Notification -->
                         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                            <div id="quizToast" class="toast align-items-center text-white border-0"
-                                role="alert" aria-live="assertive" aria-atomic="true">
+                            <div id="quizToast" class="toast align-items-center text-white border-0" role="alert"
+                                aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
                                         <i class="bi bi-unlock me-2"></i> Quiz Unlocked! You can now attempt a quiz.
@@ -430,7 +440,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="quizModalLabel">Quiz</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="quizQuestions">
                     <!-- Questions will be dynamically added here -->
@@ -442,21 +453,36 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
     <!-- Scripts -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            // Load appropriate navbar based on PHP session
+            $.get("check_auth.php", function (isLoggedIn) {
+                const navbarFile = isLoggedIn === "true" ? "navbar-loggedin.php" : "navbar-guest.php";
+                $("#navbar-placeholder").load(navbarFile);
+            });
+
+            // Load footer
+            $("#footer-placeholder").load("footer.html");
+        });
+    </script>
+
     <script>
         let courses = {};
         let player;
         let quizStatus = [false, false, false, false];
         const quizThresholds = [25, 50, 75, 100];
-        const XP_PER_QUIZ = 50; // Har quiz ke liye 50 XP
+        const XP_PER_QUIZ = 50; // Har quiz pe 50 XP
+        let currentCourseCategory = null; // 👈 category from courses.json
 
-        // XP ko localStorage se load karo ya 0 set karo
-        let totalXP = parseInt(localStorage.getItem('totalXP')) || 0;
-        document.getElementById("xpCount").textContent = totalXP;
-
+        // async: load courses.json
         async function fetchCourses() {
             try {
                 const response = await fetch('courses.json');
@@ -465,7 +491,7 @@
                 loadCourse();
             } catch (error) {
                 console.error("Error fetching courses:", error);
-                alert("Courses load nahi hue, check console!");
+                alert("Courses load nahi hue, console check karein!");
             }
         }
 
@@ -496,6 +522,9 @@
             }
 
             const course = courses[courseId];
+
+            // 👇 Store category globally for this course
+            currentCourseCategory = course.category || "quizzes";
 
             document.getElementById("courseTitle").textContent = course.title;
             document.getElementById("courseTitle2").textContent = course.title;
@@ -528,9 +557,9 @@
                 initializePlayer(course.videoId);
             }
 
-            // Quiz card pe click event
+            // Quiz card click event
             document.querySelectorAll('.quiz-card').forEach(card => {
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function () {
                     if (this.style.pointerEvents === 'auto') {
                         const threshold = this.getAttribute('data-threshold');
                         showQuizModal(courseId, threshold);
@@ -543,7 +572,7 @@
             setInterval(updateProgress, 1000);
         }
 
-        function onPlayerStateChange(event) {}
+        function onPlayerStateChange(event) { }
 
         function onPlayerError(event) {
             console.log("Player Error: ", event.data);
@@ -570,6 +599,20 @@
             }
         }
 
+        // ✅ XP ko DB me save karne wali function
+        function saveXP(xp, category) {
+            fetch("save_xp.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    xp: xp,
+                    category: category
+                })
+            })
+                .then(res => res.json())
+                .then(data => console.log("XP Saved:", data))
+                .catch(err => console.error(err));
+        }
+
         function showQuizModal(courseId, threshold) {
             const quizData = courses[courseId].quizzes[threshold];
             const quizQuestionsDiv = document.getElementById("quizQuestions");
@@ -594,8 +637,8 @@
             const quizModal = new bootstrap.Modal(document.getElementById("quizModal"));
             quizModal.show();
 
-            // Submit button ka logic with XP update
-            document.getElementById("submitQuiz").onclick = function() {
+            // Submit button logic with XP update
+            document.getElementById("submitQuiz").onclick = function () {
                 let score = 0;
                 quizData.forEach((q, index) => {
                     const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
@@ -604,16 +647,17 @@
                     }
                 });
 
-                // Agar quiz complete hua (e.g., 3/5 ya full marks), XP add karo
-                if (score >= 3) { // Minimum 3 sahi hone pe quiz complete maana
+                if (score >= 3) { // Minimum 3 sahi hone pe XP milega
                     const completedQuizzes = JSON.parse(localStorage.getItem(`completedQuizzes_${courseId}`)) || [];
                     if (!completedQuizzes.includes(threshold)) {
-                        totalXP += XP_PER_QUIZ;
-                        localStorage.setItem('totalXP', totalXP);
-                        document.getElementById("xpCount").textContent = totalXP;
+                        // 👇 Category from courses.json (math / science / english / programming)
+                        const category = courses[courseId].category || currentCourseCategory || "quizzes";
+
+                        saveXP(XP_PER_QUIZ, category);
+                        alert(`Quiz completed! You earned ${XP_PER_QUIZ} XP ✅`);
+
                         completedQuizzes.push(threshold);
                         localStorage.setItem(`completedQuizzes_${courseId}`, JSON.stringify(completedQuizzes));
-                        alert(`Quiz completed! You earned ${XP_PER_QUIZ} XP. Total XP: ${totalXP}`);
                     } else {
                         alert(`Quiz completed! Score: ${score}/${quizData.length}. No new XP (already earned).`);
                     }
@@ -624,7 +668,7 @@
             };
         }
 
-        window.onYouTubeIframeAPIReady = function() {
+        window.onYouTubeIframeAPIReady = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const courseId = urlParams.get("id");
             const course = courses[courseId];
@@ -633,10 +677,11 @@
             }
         };
 
-        window.onload = function() {
+        window.onload = function () {
             fetchCourses();
         };
     </script>
+
     <script src="index1.js"></script>
 </body>
 
